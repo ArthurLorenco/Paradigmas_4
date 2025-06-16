@@ -2,11 +2,16 @@ package Ex9;
 import java.time.LocalDate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Alunos {
     private String nome;
     private String CPF;
     private LocalDate dataNascimento;
+    ArrayList<TreinosFixo> treinosDisponiveis = new ArrayList<>();
+    ArrayList<TreinoFazivel> treinosFeitos = new ArrayList<>();
+    TreinoFazivel treinoAtual = new TreinoFazivel();
 
     public Alunos() {}
     public Alunos(String nome, String CPF, LocalDate dataNascimento) {
@@ -54,6 +59,40 @@ public class Alunos {
                 cpf.substring(6, 9) + "-" +
                 cpf.substring(9, 11);
     }
+
+    public void addTreinoDisponivel(TreinosFixo treino) {
+        treinosDisponiveis.add(treino);
+    }
+
+    public void EscolherTreino(Scanner sc, LocalDate data){
+
+        TreinoFazivel treino = new TreinoFazivel();
+
+        System.out.println("Qual dos treinos a seguir o aluno quer fazer?");
+        for(int i=0; i<treinosDisponiveis.size(); i++){
+            System.out.println("Treino " + (i+1) + ":\n" + treinosDisponiveis.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= treinosDisponiveis.size()) {
+                treino = treinosDisponiveis.get(opcao).iniciarTreino(data);
+                break;
+            } else {
+                System.out.println("opcao invalida, tente novamente" );
+            }
+        }
+
+        treinoAtual = treino;
+    }
+
+    public void finalizarTreinoAtual(){
+
+        treinosFeitos.add(treinoAtual);
+        treinoAtual = null;
+
+    }
+
 
     @Override
     public String toString() {
