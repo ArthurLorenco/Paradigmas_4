@@ -18,6 +18,8 @@ public class Ex3 {
         System.out.println("Elementos: " + numeros);
         System.out.println("Vizinho inferior do " + valor + ": " + numeros.lower(valor));
         System.out.println("Vizinho superior do " + valor + ": " + numeros.higher(valor));
+        //System.out.println("celling: " + numeros.ceiling(valor));
+        //System.out.println("floor: " + numeros.floor(valor));
 
         NavigableSet<Integer> decrescente = numeros.descendingSet();
         System.out.println("Elementos em ordem decrescente: " + decrescente);

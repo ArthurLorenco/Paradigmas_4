@@ -16,13 +16,13 @@ public class Ex2 {
 
         for (int i = 0; i < quantos; i++) {
             Aluno aluno_novo = new Aluno();
-            aluno_novo.cadastrarAluno();
+            aluno_novo.cadastrarAluno(sc);
             lista.add(aluno_novo);
         }
 
-        System.out.println("Lista de alunos aprovados: ");
+        System.out.println("lista de alunos aprovados: ");
         for (Aluno aluno : lista) {
-            if(aluno.aprovado) System.out.println(aluno.nome);
+            if(aluno.isAprovado()) System.out.println(aluno);
         }
 
     }
