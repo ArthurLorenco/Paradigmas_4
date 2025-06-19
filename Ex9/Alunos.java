@@ -3,17 +3,35 @@ import java.time.LocalDate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Alunos {
     private String nome;
     private String CPF;
     private LocalDate dataNascimento;
+
     ArrayList<TreinosFixo> treinosDisponiveis = new ArrayList<>();
     ArrayList<TreinoFazivel> treinosFeitos = new ArrayList<>();
+
     TreinoFazivel treinoAtual = new TreinoFazivel();
 
-    public Alunos() {}
+    public Alunos(Scanner sc) {
+
+        sc.nextLine();
+
+        System.out.println("Digite o nome do aluno: ");
+        String nome = sc.nextLine();
+        this.setNome(nome);
+        System.out.println("Digite o cpf do aluno: ");
+        String CPF = sc.nextLine();
+        this.setCPF(CPF);
+        System.out.println("Digite a data de nascimento (YYYY-MM-DD): ");
+        String dataNascimento = sc.nextLine();
+        this.setDataNascimento(LocalDate.parse(dataNascimento));
+
+    }
     public Alunos(String nome, String CPF, LocalDate dataNascimento) {
         this.setNome(nome);
         this.setCPF(CPF);
@@ -91,6 +109,21 @@ public class Alunos {
         treinosFeitos.add(treinoAtual);
         treinoAtual = null;
 
+    }
+
+    public static void ListarAlunos(ArrayList<Alunos> alunos) {
+        for (Alunos aluno : alunos) {
+            System.out.println(aluno);
+        }
+    }
+
+    public static void AdicionarAluno(Scanner sc, ArrayList<Alunos> ListaAlunos, Map<String, Alunos> MapAlunosPorCpf, Map<String, List<Alunos>> MapAlunosPorNome) {
+
+        Alunos aluno = new Alunos(sc);
+
+        ListaAlunos.add(aluno);
+        MapAlunosPorCpf.put(aluno.getCPF(), aluno);
+        MapAlunosPorNome.computeIfAbsent(aluno.getNome(), k -> new ArrayList<>()).add(aluno);
     }
 
 
