@@ -6,7 +6,7 @@ public class ArvoresAltura {
         // TreeMap ordena automaticamente as chaves em ordem alfabética
         TreeMap<String, Double> arvores = new TreeMap<>();
 
-        // Adicionando algumas espécies de árvores e suas alturas médias (em metros)
+        // Espécies de árvores e suas alturas médias de exemplo
         arvores.put("Ipê-Amarelo", 7.0);
         arvores.put("Araucária", 25.0);
         arvores.put("Mangueira", 15.0);
