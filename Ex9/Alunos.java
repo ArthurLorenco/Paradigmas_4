@@ -1,9 +1,7 @@
 package Ex9;
 import java.time.LocalDate;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -11,6 +9,7 @@ public class Alunos {
     private String nome;
     private String CPF;
     private LocalDate dataNascimento;
+    private Planos plano;
 
     ArrayList<TreinosFixo> treinosDisponiveis = new ArrayList<>();
     ArrayList<TreinoFazivel> treinosFeitos = new ArrayList<>();
@@ -82,12 +81,81 @@ public class Alunos {
         return nome;
     }
 
-    public void addTreinoDisponivel(TreinosFixo treino) {
-        treinosDisponiveis.add(treino);
+    public void EscolherTreinoDisponivel(Scanner sc, ArrayList<TreinosFixo> ListaTreinosDisponiveis) {
+
+        if(ListaTreinosDisponiveis.isEmpty()) {
+            System.out.println("nao tem treinos");
+            return;
+        }
+
+        System.out.println("Qual dos planos a seguir eh?" );
+        for(int i=0; i<ListaTreinosDisponiveis.size(); i++){
+            System.out.println("Treino " + (i+1) + ":\n" + ListaTreinosDisponiveis.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= ListaTreinosDisponiveis.size()) {
+                treinosDisponiveis.add(ListaTreinosDisponiveis.get(opcao-1));
+                break;
+            } else {
+                System.out.println("opcao invalida, tente novamente" );
+            }
+        }
     }
-    public void EscolherTreino(Scanner sc, LocalDate data){
+    public void EscolherPlano(Scanner sc, ArrayList<Planos> ListaPlanos) {
+
+        if(ListaPlanos.isEmpty()) {
+            System.out.println("nao tem planos");
+            return;
+        }
+
+        System.out.println("Qual dos planos a seguir eh?" );
+        for(int i=0; i<ListaPlanos.size(); i++){
+            System.out.println("Plano " + (i+1) + ":\n" + ListaPlanos.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= ListaPlanos.size()) {
+                this.plano = ListaPlanos.get(opcao-1);
+                break;
+            } else {
+                System.out.println("opcao invalida, tente novamente" );
+            }
+        }
+    }
+    public void ExcluirTreinoDisponivel(Scanner sc) {
+
+        if(treinosDisponiveis.isEmpty()) {
+            System.out.println("nao tem treinos disponiveis");
+            return;
+        }
+
+        System.out.println("Qual dos treinos quer excluir?" );
+        for(int i=0; i<treinosDisponiveis.size(); i++){
+            System.out.println("Treino " + (i+1) + ":\n" + treinosDisponiveis.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= treinosDisponiveis.size()) {
+                treinosDisponiveis.remove(treinosDisponiveis.get(opcao-1));
+                break;
+            } else {
+                System.out.println("opcao invalida, tente novamente" );
+            }
+        }
+
+    }
+    public void EscolherTreinoPraFazer(Scanner sc, LocalDate data){
 
         TreinoFazivel treino = new TreinoFazivel();
+
+        if(treinosDisponiveis.isEmpty()){
+            System.out.println("Nenhum treino cadastrado pro aluno");
+            return;
+        }
 
         System.out.println("Qual dos treinos a seguir o aluno quer fazer?");
         for(int i=0; i<treinosDisponiveis.size(); i++){
@@ -97,13 +165,15 @@ public class Alunos {
         while(true) {
             int opcao = sc.nextInt();
             if (opcao > 0 && opcao <= treinosDisponiveis.size()) {
-                treino = treinosDisponiveis.get(opcao).iniciarTreino(data);
+                TreinosFixo tfixo = treinosDisponiveis.get(opcao-1);
+                treino.exerciciosCargas = tfixo.exerciciosCargas;
+                treino.exerciciosLista = tfixo.exerciciosLista;
                 break;
             } else {
                 System.out.println("opcao invalida, tente novamente" );
             }
         }
-
+        treino.setDataDoTreino(LocalDate.now());
         treinoAtual = treino;
     }
     public void finalizarTreinoAtual(){
@@ -112,6 +182,8 @@ public class Alunos {
         treinoAtual = null;
 
     }
+
+
 
     public static void ListarAlunos(ArrayList<Alunos> alunos) {
         for (Alunos aluno : alunos) {
@@ -126,7 +198,61 @@ public class Alunos {
         MapAlunosPorCpf.put(aluno.getCPF(), aluno);
         MapAlunosPorNome.put(aluno.getNome(), aluno);
     }
+    public static void EditarAluno(Scanner sc, Map<String, Alunos> MapAlunosPorCpf, Map<String, Alunos> MapAlunosPorNome, ArrayList<Planos> ListaPlanos, ArrayList<TreinosFixo> ListaTreinoFixo){
 
+        Alunos alunoPraEditar = BuscarAluno(sc, MapAlunosPorCpf, MapAlunosPorNome);
+
+        if(alunoPraEditar == null)
+            return;
+
+        int opcao = 1;
+
+        while(opcao != 0) {
+            System.out.print("(editar aluno) O que voce quer fazer?\n" +
+                    "1 - Escolher um plano para o aluno\n" +
+                    "2 - Escolher um treino pro aluno fazer agora\n" +
+                    "3 - Excluir um treino do aluno \n" +
+                    "4 - Adicionar um treino pro aluno \n" +
+                    "0 - Sair\n");
+
+            opcao = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcao) {
+                case 1:{
+                    alunoPraEditar.EscolherPlano(sc, ListaPlanos);
+                    break;
+                }
+                case 2:{
+                    alunoPraEditar.EscolherTreinoPraFazer(sc, LocalDate.parse("2025-06-26"));
+                    break;
+                }
+                case 3:{
+                    alunoPraEditar.ExcluirTreinoDisponivel(sc);
+                    break;
+                }
+                case 4:{
+                    alunoPraEditar.EscolherTreinoDisponivel(sc, ListaTreinoFixo);
+                    break;
+                }
+                case 0:{
+                    break;
+                }
+                default:
+                    System.out.println("opcao invalida");
+                    break;
+            }
+        }
+
+
+
+
+
+
+
+
+
+    }
     public static void ExcluirAluno(Scanner sc, ArrayList<Alunos> ListaAlunos, Map<String, Alunos> MapAlunosPorCpf, Map<String, Alunos> MapAlunosPorNome) {
         Alunos alunoPraExcluir = BuscarAluno(sc, MapAlunosPorCpf, MapAlunosPorNome);
 

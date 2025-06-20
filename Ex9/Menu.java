@@ -1,5 +1,6 @@
 package Ex9;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static Ex9.Alunos.*;
@@ -18,8 +19,11 @@ public class Menu {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        int opcao = 1;
 
-        while (true) {
+        AdicionarBasico();
+
+        while (opcao != 0) {
             System.out.printf("O que quer fzr?\n" +
                     "1 - Modificar alunos\n" +
                     "2 - Modificar exercicios\n" +
@@ -27,7 +31,7 @@ public class Menu {
                     "4 - Modificar Planos\n" +
                     "5 - Entrar como aluno\n" +
                     "0 - Sair\n\n");
-            int opcao = sc.nextInt();
+            opcao = sc.nextInt();
             switch (opcao) {
                 case 1: {
                     ModificarAluno(sc);
@@ -42,8 +46,10 @@ public class Menu {
                 case 4:{
 
                 }
-                case 0: {
+                case 5:{
 
+                }
+                case 0: {
                     break;
                 }
             }
@@ -71,7 +77,8 @@ public class Menu {
                     break;
                 }
                 case 3:{
-
+                    EditarAluno(sc, MapAlunosPorCpf, MapAlunosPorNome, ListaPlanos, ListaTreinoFixo);
+                    break;
                 }
                 case 4:{
                     ExcluirAluno(sc, ListaAlunos, MapAlunosPorCpf, MapAlunosPorNome);
@@ -84,6 +91,33 @@ public class Menu {
 
             }
         }
+
+    }
+
+    public static void AdicionarBasico() {
+        Alunos aluno1 = new Alunos("Julio", "12345678900", LocalDate.parse("2000-05-05"));
+        ListaAlunos.add(aluno1);
+        MapAlunosPorCpf.put(aluno1.getCPF(), aluno1);
+        MapAlunosPorNome.put(aluno1.getNome(), aluno1);
+
+        Planos plano1 = new Planos("Plano1", 101, 100);
+        ListaPlanos.add(plano1);
+
+        Exercicios ex1 = new Exercicios(1, "Supino Reto", Arrays.asList("Peito", "Tríceps", "Ombros"));
+        Exercicios ex2 = new Exercicios(2, "Agachamento Livre", Arrays.asList("Quadríceps", "Glúteos", "Posterior de Coxa"));
+        Exercicios ex3 = new Exercicios(3, "Puxada na Barra", Arrays.asList("Costas", "Bíceps", "Antebraço"));
+        ListaExercicios.add(ex1);
+        ListaExercicios.add(ex2);
+        ListaExercicios.add(ex3);
+
+        List<Exercicios> listaEx = new ArrayList<>();
+        listaEx.add(ex1);
+        listaEx.add(ex2);
+        List<Integer> cargas = List.of(60, 80);
+        TreinosFixo treino1 = new TreinosFixo(listaEx, cargas);
+        ListaTreinoFixo.add(treino1);
+
+        aluno1.treinosDisponiveis.add(treino1);
 
     }
 

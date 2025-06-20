@@ -9,22 +9,20 @@ public class TreinosFixo {
     ArrayList<Exercicios> exerciciosLista = new ArrayList<Exercicios>();
     ArrayList<Integer> exerciciosCargas = new ArrayList<Integer>();
 
-    ArrayList<LocalDate> dataDoTreino = new ArrayList<LocalDate>();
-
     public TreinosFixo() {}
+    public TreinosFixo(List<Exercicios> exercicios, List<Integer> cargas) {
+        if (exercicios.size() != cargas.size()) {
+            throw new IllegalArgumentException("O número de exercícios deve ser igual ao número de cargas.");
+        }
+
+        this.exerciciosLista = new ArrayList<>(exercicios);
+        this.exerciciosCargas = new ArrayList<>(cargas);
+    }
+
 
     public void addicionarExercicio(Exercicios ex, int carga) {
         exerciciosLista.add(ex);
         exerciciosCargas.add(carga);
-    }
-
-    public TreinoFazivel iniciarTreino(LocalDate data){
-        TreinoFazivel treinoFazivel = new TreinoFazivel();
-        treinoFazivel.setDataDoTreino(data);
-
-        System.out.println(treinoFazivel);
-
-        return treinoFazivel;
     }
 
     public void alterarCarga(int i, int novaCarga) {

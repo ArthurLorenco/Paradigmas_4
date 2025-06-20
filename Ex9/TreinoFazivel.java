@@ -7,8 +7,11 @@ import java.util.ArrayList;
 public class TreinoFazivel extends TreinosFixo{
 
     LocalDate dataDoTreino;
-    ArrayList<Boolean> exerciciosFeitos = new ArrayList<Boolean>();
+    ArrayList<Boolean> exerciciosFeitos;
 
+    public TreinoFazivel(){
+
+    }
 
     public void marcarComoFeito(int i){
         exerciciosFeitos.set(i, true);
