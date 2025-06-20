@@ -26,4 +26,3 @@ public class Ex6 {
          scanner.close();
     }
 }
-
