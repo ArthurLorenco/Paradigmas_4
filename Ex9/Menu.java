@@ -25,6 +25,7 @@ public class Menu {
                     "2 - Modificar exercicios\n" +
                     "3 - Modificar Treinos\n" +
                     "4 - Modificar Planos\n" +
+                    "5 - Entrar como aluno\n" +
                     "0 - Sair\n\n");
             int opcao = sc.nextInt();
             switch (opcao) {
@@ -67,6 +68,16 @@ public class Menu {
                 }
                 case 2:{
                     AdicionarAluno(sc, ListaAlunos, MapAlunosPorCpf, MapAlunosPorNome);
+                    break;
+                }
+                case 3:{
+
+                }
+                case 4:{
+
+                }
+                case 5:{
+                    BuscarAluno(sc, ListaAlunos, MapAlunosPorCpf, MapAlunosPorNome);
                     break;
                 }
 

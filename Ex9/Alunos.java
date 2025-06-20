@@ -49,16 +49,9 @@ public class Alunos {
     }
 
     public void setNome(String nome) {
-        if (nome == null || nome.trim().isEmpty()) {
-            throw new IllegalArgumentException("nome vazio");
-        }
 
-        nome = nome.trim();
+        this.nome = formatarNome(nome);
 
-        if (nome.length() > 15)
-            nome = nome.substring(0, 15);
-
-        this.nome = nome;
     }
     public void setCPF(String CPF) {
         if (CPF.matches("\\d{11}")) {
@@ -71,17 +64,27 @@ public class Alunos {
         this.dataNascimento = dataNascimento;
     }
 
-    private String formatarCPF(String cpf) {
+    private static String formatarCPF(String cpf) {
         return cpf.substring(0, 3) + "." +
                 cpf.substring(3, 6) + "." +
                 cpf.substring(6, 9) + "-" +
                 cpf.substring(9, 11);
     }
+    private static String formatarNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("nome vazio");
+        }
+
+        nome = nome.trim();
+
+        if (nome.length() > 15)
+            nome = nome.substring(0, 15);
+        return nome;
+    }
 
     public void addTreinoDisponivel(TreinosFixo treino) {
         treinosDisponiveis.add(treino);
     }
-
     public void EscolherTreino(Scanner sc, LocalDate data){
 
         TreinoFazivel treino = new TreinoFazivel();
@@ -103,7 +106,6 @@ public class Alunos {
 
         treinoAtual = treino;
     }
-
     public void finalizarTreinoAtual(){
 
         treinosFeitos.add(treinoAtual);
@@ -126,6 +128,66 @@ public class Alunos {
         MapAlunosPorNome.computeIfAbsent(aluno.getNome(), k -> new ArrayList<>()).add(aluno);
     }
 
+    public static Alunos BuscarAluno(Scanner sc, ArrayList<Alunos> ListaAlunos, Map<String, Alunos> MapAlunosPorCpf, Map<String, List<Alunos>> MapAlunosPorNome) {
+
+        Alunos alunoBuscado = null;
+        int escolha = 1;
+
+        while(escolha != 0) {
+            System.out.print("Como voce quer buscar o aluno?\n" +
+                    "1 - por nome\n" +
+                    "2 - por CPF\n" +
+                    "0 - Sair (retorna null)" );
+            escolha = sc.nextInt();
+            sc.nextLine();
+            switch (escolha) {
+                case 1:{
+                    System.out.println("Digite o nome do aluno: ");
+                    String nome = sc.nextLine();
+                    nome = formatarNome(nome);
+                    List<Alunos> alunosComNome = MapAlunosPorNome.get(nome);
+
+                    if (alunosComNome == null || alunosComNome.isEmpty()) {
+                        System.out.println("Nenhum aluno encontrado com o nome " + nome);
+                        return null;
+                    } else {
+                        if(alunosComNome.size() > 1){
+                            System.out.println("Alunos encontrados com o nome \"" + nome + "\":" );
+                            for (Alunos aluno : alunosComNome) {
+                                System.out.println(aluno);
+                            }
+                        }else{
+                            System.out.println("Aluno esncontrado: \n" + alunosComNome.get(0).toString());
+                        }
+                        return alunosComNome.getFirst();
+                    }
+                }
+                case 2:{
+                    System.out.println("Digite o CPF do aluno: ");
+                    String cpf = sc.nextLine();
+                    cpf = formatarCPF(cpf);
+
+                    Alunos cpfEncontrado = MapAlunosPorCpf.get(cpf);
+
+                    if(cpfEncontrado == null){
+                        System.out.println("Nenhum aluno encontrado com o cpf " + cpf);
+                        return null;
+                    }else {
+                        System.out.println("Aluno encontrado com o cpf digitado: " + cpfEncontrado.toString());
+                        return cpfEncontrado;
+                    }
+                }
+                case 0:{
+                    break;
+                }
+                default:{
+                    System.out.println("Opcao invalida, tente novamente");
+                    break;
+                }
+            }
+        }
+        return null;
+    }
 
     @Override
     public String toString() {
