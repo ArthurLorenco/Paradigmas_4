@@ -118,17 +118,30 @@ public class Alunos {
             System.out.println(aluno);
         }
     }
-
-    public static void AdicionarAluno(Scanner sc, ArrayList<Alunos> ListaAlunos, Map<String, Alunos> MapAlunosPorCpf, Map<String, List<Alunos>> MapAlunosPorNome) {
+    public static void AdicionarAluno(Scanner sc, ArrayList<Alunos> ListaAlunos, Map<String, Alunos> MapAlunosPorCpf, Map<String, Alunos> MapAlunosPorNome) {
 
         Alunos aluno = new Alunos(sc);
 
         ListaAlunos.add(aluno);
         MapAlunosPorCpf.put(aluno.getCPF(), aluno);
-        MapAlunosPorNome.computeIfAbsent(aluno.getNome(), k -> new ArrayList<>()).add(aluno);
+        MapAlunosPorNome.put(aluno.getNome(), aluno);
     }
 
-    public static Alunos BuscarAluno(Scanner sc, ArrayList<Alunos> ListaAlunos, Map<String, Alunos> MapAlunosPorCpf, Map<String, List<Alunos>> MapAlunosPorNome) {
+    public static void ExcluirAluno(Scanner sc, ArrayList<Alunos> ListaAlunos, Map<String, Alunos> MapAlunosPorCpf, Map<String, Alunos> MapAlunosPorNome) {
+        Alunos alunoPraExcluir = BuscarAluno(sc, MapAlunosPorCpf, MapAlunosPorNome);
+
+        if(alunoPraExcluir == null){
+            return;
+        }
+
+        ListaAlunos.remove(alunoPraExcluir);
+        MapAlunosPorCpf.remove(alunoPraExcluir.getCPF());
+        MapAlunosPorNome.remove(alunoPraExcluir.getNome());
+
+        System.out.println("Aluno excluido!");
+
+    }
+    public static Alunos BuscarAluno(Scanner sc, Map<String, Alunos> MapAlunosPorCpf, Map<String, Alunos> MapAlunosPorNome) {
 
         Alunos alunoBuscado = null;
         int escolha = 1;
@@ -145,21 +158,14 @@ public class Alunos {
                     System.out.println("Digite o nome do aluno: ");
                     String nome = sc.nextLine();
                     nome = formatarNome(nome);
-                    List<Alunos> alunosComNome = MapAlunosPorNome.get(nome);
+                    Alunos alunosComNome = MapAlunosPorNome.get(nome);
 
-                    if (alunosComNome == null || alunosComNome.isEmpty()) {
+                    if (alunosComNome == null) {
                         System.out.println("Nenhum aluno encontrado com o nome " + nome);
                         return null;
                     } else {
-                        if(alunosComNome.size() > 1){
-                            System.out.println("Alunos encontrados com o nome \"" + nome + "\":" );
-                            for (Alunos aluno : alunosComNome) {
-                                System.out.println(aluno);
-                            }
-                        }else{
-                            System.out.println("Aluno esncontrado: \n" + alunosComNome.get(0).toString());
-                        }
-                        return alunosComNome.getFirst();
+                        System.out.println("Aluno esncontrado: \n" + alunosComNome.toString());
+                        return alunosComNome;
                     }
                 }
                 case 2:{
@@ -188,6 +194,7 @@ public class Alunos {
         }
         return null;
     }
+
 
     @Override
     public String toString() {

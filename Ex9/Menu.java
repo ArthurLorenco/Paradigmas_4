@@ -8,7 +8,7 @@ public class Menu {
 
     public static ArrayList<Alunos> ListaAlunos = new ArrayList<>();
     public static Map<String, Alunos> MapAlunosPorCpf = new HashMap<>();
-    public static Map<String, List<Alunos>> MapAlunosPorNome = new HashMap<>();
+    public static Map<String, Alunos> MapAlunosPorNome = new HashMap<>();
 
     public static ArrayList<Exercicios> ListaExercicios = new ArrayList<>();
     public static ArrayList<Planos> ListaPlanos = new ArrayList<>();
@@ -53,7 +53,7 @@ public class Menu {
     public static void ModificarAluno(Scanner sc) {
 
         while (true) {
-            System.out.printf("(Alunos) O que quer fzr?\n" +
+            System.out.print("(Alunos) O que quer fzr?\n" +
                     "1 - Listar alunos\n" +
                     "2 - Adicionar aluno\n" +
                     "3 - Editar aluno\n" +
@@ -74,10 +74,11 @@ public class Menu {
 
                 }
                 case 4:{
-
+                    ExcluirAluno(sc, ListaAlunos, MapAlunosPorCpf, MapAlunosPorNome);
+                    break;
                 }
                 case 5:{
-                    BuscarAluno(sc, ListaAlunos, MapAlunosPorCpf, MapAlunosPorNome);
+                    BuscarAluno(sc, MapAlunosPorCpf, MapAlunosPorNome);
                     break;
                 }
 
