@@ -94,6 +94,28 @@ public class TreinosFixo {
             System.out.println("Feito :D\n");
     }
 }
+    public static void EditarTreinoFixo(Scanner sc, ArrayList<TreinosFixo> ListaTreinosFixo, ArrayList<Exercicios> ListaExercicios){
+
+        TreinosFixo treino = EscolherTreino(sc, ListaTreinosFixo);
+        if(treino == null) return;
+
+        treino.exerciciosCargas.clear();
+        treino.exerciciosLista.clear();
+
+        System.out.println("Assim, escolhe um exercicio, e logo depois escolhe uma carga pra ele, ok?\n");
+
+        while (true) {
+            Exercicios ex = Exercicios.EscolherExercicios(sc, ListaExercicios);
+            if (ex == null) {
+                break;
+            }
+            treino.exerciciosLista.add(ex);
+
+            System.out.println("Qual vai ser a carga pro exercicio?");
+            treino.exerciciosCargas.add(sc.nextInt());
+        }
+
+    }
 
 
 @Override

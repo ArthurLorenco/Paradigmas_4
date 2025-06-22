@@ -162,6 +162,10 @@ public class Menu {
                     ExcluirTreino(sc, ListaTreinoFixo);
                     break;
                 }
+                case 4:{
+                    EditarTreinoFixo(sc, ListaTreinoFixo, ListaExercicios);
+                    break;
+                }
                 case 0: {
                     break;
                 }
