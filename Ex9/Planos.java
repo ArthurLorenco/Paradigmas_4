@@ -69,6 +69,31 @@ public class Planos {
         System.out.println("Pronto :O\n");
 
     }
+    public static void ExcluirPlano(Scanner sc, ArrayList<Planos> ListaPlanos) {
+        if(ListaPlanos.isEmpty()) {
+            System.out.println("nao tem exercicios");
+            return;
+        }
+
+        System.out.println("Qual dos planos a seguir tu quer excluir? (0 pra nenhum)" );
+        for(int i=0; i<ListaPlanos.size(); i++){
+            System.out.println("Plano " + (i+1) + ":\n" + ListaPlanos.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= ListaPlanos.size()) {
+                ListaPlanos.remove(opcao-1);
+                return;
+            } else if (opcao == 0){
+                return;
+            } else{
+                System.out.println("opcao invalida, tente novamente");
+            }
+        }
+
+    }
+
 
     @Override
     public String toString() {

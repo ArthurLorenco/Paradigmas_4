@@ -192,7 +192,7 @@ public class Menu {
                     break;
                 }
                 case 3: {
-                    ExcluirTreino(sc, ListaTreinoFixo);
+                    ExcluirPlano(sc, ListaPlanos);
                     break;
                 }
                 case 0: {
