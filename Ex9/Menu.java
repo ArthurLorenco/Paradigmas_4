@@ -116,7 +116,7 @@ public class Menu {
                     break;
                 }
                 case 2: {
-                    //AdicionarAluno(sc, ListaAlunos, MapAlunosPorCpf, MapAlunosPorNome);
+                    AdicionarExercicio(sc, ListaExercicios);
                     break;
                 }
                 case 0: {
