@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static Ex9.Alunos.*;
+import static Ex9.Exercicios.*;
 
 public class Menu {
 
@@ -104,7 +105,24 @@ public class Menu {
         int opcao = 1;
 
         while (opcao != 0) {
-            System.out.println();
+            System.out.print("(Exercicios) O que quer fzr?\n" +
+                    "1 - Listar exercicios\n" +
+                    "2 - Adicionar exercicio\n" +
+                    "0 - Sair\n\n");
+            opcao = sc.nextInt();
+            switch (opcao) {
+                case 1: {
+                    ListarExercicios(ListaExercicios);
+                    break;
+                }
+                case 2: {
+                    //AdicionarAluno(sc, ListaAlunos, MapAlunosPorCpf, MapAlunosPorNome);
+                    break;
+                }
+                case 0: {
+                    break;
+                }
+            }
         }
     }
 

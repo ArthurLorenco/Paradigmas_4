@@ -1,5 +1,6 @@
 package Ex9;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Exercicios {
@@ -33,6 +34,13 @@ public class Exercicios {
     }
     public void setMusculosAtivados(List<String> musculosAtivados) {
         this.musculosAtivados = musculosAtivados;
+    }
+
+    public static void ListarExercicios(ArrayList<Exercicios> exercicios) {
+        for (Exercicios exercicio : exercicios) {
+            System.out.println(exercicio);
+        }
+        System.out.println();
     }
 
     // Representação em string

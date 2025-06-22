@@ -1,0 +1,80 @@
+## Comparação: CopyOnWriteArrayList vs Collections.synchronizedList()
+
+| Característica                | CopyOnWriteArrayList                                  | Collections.synchronizedList()                     |
+|-------------------------------|-------------------------------------------------------|----------------------------------------------------|
+| Thread-safe                   | Sim                                                   | Sim                                                |
+| Leitura                       | Sem bloqueio (muito rápida)                           | Sincronizada (bloqueia acesso)                     |
+| Escrita (add/remove)          | Cópia completa do array (mais custosa)                | Sincronizada com menor custo                       |
+| Iteração                      | Snapshot seguro (sem ConcurrentModificationException) | Pode lançar ConcurrentModificationException        |
+| Controle de sincronização     | Interno, com bloqueio apenas na escrita               | Exige cuidado externo ao iterar                    |
+| Uso ideal                     | Muitas leituras, poucas modificações                  | Uso balanceado entre leitura e escrita             |
+
+
+
+//EXPLICAÇÃO ADD E REMOVE:
+
+public boolean add(E e) {
+    // Obtém o lock (ReentrantLock) usado para proteger operações de escrita
+    final ReentrantLock lock = this.lock;
+    lock.lock(); // Trava para garantir que apenas uma thread possa modificar a lista por vez
+
+    try {
+        // Pega o array atual usado para armazenar os elementos
+        Object[] elements = getArray();
+        int len = elements.length;
+
+        // Cria uma nova cópia do array, com espaço para o novo elemento
+        Object[] newElements = Arrays.copyOf(elements, len + 1);
+
+        // Adiciona o novo elemento na última posição do novo array
+        newElements[len] = e;
+
+        // Atualiza o array da lista para o novo
+        setArray(newElements);
+
+        return true; // Operação de adição foi bem-sucedida
+    } finally {
+        lock.unlock(); // Libera a lock mesmo que ocorra alguma exceção
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------
+
+public boolean remove(Object o) {
+    final ReentrantLock lock = this.lock;
+    lock.lock(); // Trava a lista para garantir exclusividade de modificação
+
+    try {
+        // Pega o array atual
+        Object[] elements = getArray();
+        int len = elements.length;
+
+        if (len != 0) {
+            // Itera para encontrar o índice do elemento que será removido
+            for (int i = 0; i < len; ++i) {
+                if (o.equals(elements[i])) {
+                    // Elemento encontrado → cria um novo array com tamanho -1
+                    Object[] newElements = new Object[len - 1];
+
+                    // Copia os elementos antes do índice i
+                    System.arraycopy(elements, 0, newElements, 0, i);
+
+                    // Copia os elementos depois do índice i
+                    System.arraycopy(elements, i + 1, newElements, i, len - i - 1);
+
+                    // Substitui o array antigo pela nova versão sem o elemento
+                    setArray(newElements);
+
+                    return true; // Remoção bem-sucedida
+                }
+            }
+        }
+
+        return false; // Elemento não foi encontrado
+    } finally {
+        lock.unlock(); // Libera a lock
+    }
+}
+
+
+//A cada modificação add ou remove, o array é copiado e depois substituído, garantindo segurança para leitura concorrente, que não precisam de lock e nunca veem dados em transição. Lock é usado só para escrita, evitando interferência entre threads.
