@@ -1,5 +1,7 @@
 package Ex9;
 
+import java.util.ArrayList;
+
 public class Planos {
 
     private String nome;
@@ -30,6 +32,18 @@ public class Planos {
         this.setNome(nome);
         this.setCodigo(codigo);
         this.setValorMensal(Math.round(valorMensal * 100) / 100f);
+    }
+
+    public static void ListarPlanos(ArrayList<Planos> ListaPlanos) {
+
+        if(ListaPlanos.isEmpty()) {
+            System.out.println("nao tem nenhum plano");
+        }
+
+        for (Planos plano: ListaPlanos) {
+            System.out.println(plano);
+        }
+        System.out.println();
     }
 
     @Override

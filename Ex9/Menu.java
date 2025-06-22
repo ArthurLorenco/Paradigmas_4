@@ -5,6 +5,7 @@ import java.util.*;
 
 import static Ex9.Alunos.*;
 import static Ex9.Exercicios.*;
+import static Ex9.Planos.*;
 import static Ex9.TreinosFixo.*;
 
 public class Menu {
@@ -48,7 +49,8 @@ public class Menu {
                     break;
                 }
                 case 4:{
-
+                    ModificarPlanos(sc);
+                    break;
                 }
                 case 5:{
 
@@ -101,7 +103,6 @@ public class Menu {
         }
 
     }
-
     public static void ModificarExercicios(Scanner sc) {
 
         int opcao = 1;
@@ -137,7 +138,6 @@ public class Menu {
             }
         }
     }
-
     public static void ModificarTreinos(Scanner sc) {
 
         int opcao = 1;
@@ -147,6 +147,7 @@ public class Menu {
                     "1 - Listar treinos\n" +
                     "2 - Adicionar treino\n" +
                     "3 - Excluir treino\n" +
+                    "4 - Editar treino\n" +
                     "0 - Sair\n\n");
             opcao = sc.nextInt();
             switch (opcao) {
@@ -172,7 +173,35 @@ public class Menu {
             }
         }
     }
+    public static void ModificarPlanos(Scanner sc) {
+        int opcao = 1;
+        while (opcao != 0) {
+            System.out.print("(Planos) O que quer fzr?\n" +
+                    "1 - Listar Planos\n" +
+                    "2 - Adicionar plano\n" +
+                    "3 - Excluir plano\n" +
+                    "0 - Sair\n\n");
+            opcao = sc.nextInt();
+            switch (opcao) {
+                case 1: {
+                    ListarPlanos(ListaPlanos);
+                    break;
+                }
+                case 2: {
+                    AdicionarTreino(sc, ListaTreinoFixo, ListaExercicios);
+                    break;
+                }
+                case 3: {
+                    ExcluirTreino(sc, ListaTreinoFixo);
+                    break;
+                }
+                case 0: {
+                    break;
+                }
 
+            }
+        }
+    }
 
     public static void AdicionarBasico() {
         Alunos aluno1 = new Alunos("Julio", "12345678900", LocalDate.parse("2000-05-05"));
