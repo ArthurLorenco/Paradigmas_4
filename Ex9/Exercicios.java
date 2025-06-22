@@ -16,7 +16,6 @@ public class Exercicios {
         this.nome = nome;
         this.musculosAtivados = musculosAtivados;
     }
-
     public Exercicios() {
     }
 
@@ -47,7 +46,7 @@ public class Exercicios {
             return null;
         }
 
-        System.out.println("Qual dos exercicios a seguir tu quer?" );
+        System.out.println("Qual dos exercicios a seguir tu quer? (0 pra nenhum)" );
         for(int i=0; i<ListaExercicios.size(); i++){
             System.out.println("Exercicio " + (i+1) + ":\n" + ListaExercicios.get(i).toString());
         }
@@ -56,7 +55,9 @@ public class Exercicios {
             int opcao = sc.nextInt();
             if (opcao > 0 && opcao <= ListaExercicios.size()) {
                 return ListaExercicios.get(opcao-1);
-            } else {
+            } else if (opcao == 0){
+                return null;
+            } else{
                 System.out.println("opcao invalida, tente novamente");
             }
         }

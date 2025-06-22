@@ -154,7 +154,7 @@ public class Menu {
                     break;
                 }
                 case 2: {
-                    //AdicionarExercicio(sc, ListaExercicios);
+                    AdicionarTreino(sc, ListaTreinoFixo, ListaExercicios);
                     break;
                 }
                 case 0: {

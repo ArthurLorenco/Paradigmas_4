@@ -3,6 +3,7 @@ package Ex9;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TreinosFixo {
 
@@ -37,6 +38,27 @@ public class TreinosFixo {
         }
         System.out.println();
     }
+    public static void AdicionarTreino(Scanner sc, ArrayList<TreinosFixo> ListaTreinosFixo, ArrayList<Exercicios> ListaExercicios) {
+
+        ArrayList<Exercicios> exerciciosProTreino = new ArrayList<Exercicios>();
+        ArrayList<Integer> cargas = new ArrayList<Integer>();
+
+        System.out.println("Assim, escolhe um exercicio, e logo depois escolhe uma carga pra ele, ok?\n");
+
+        while (true) {
+            Exercicios ex = Exercicios.EscolherExercicios(sc, ListaExercicios);
+            if (ex == null) {
+                break;
+            }
+            exerciciosProTreino.add(ex);
+
+            System.out.println("Qual vai ser a carga pro exercicio?");
+            cargas.add(sc.nextInt());
+        }
+
+        ListaTreinosFixo.add(new TreinosFixo(exerciciosProTreino, cargas));
+
+    }
 
     @Override
     public String toString() {
@@ -44,7 +66,7 @@ public class TreinosFixo {
         sb.append("Exercicios do treino:\n");
 
         for (int i = 0; i < exerciciosLista.size(); i++)
-            sb.append(exerciciosLista.get(i) + "\n");
+            sb.append("Carga " + exerciciosCargas.get(i) + " - " + exerciciosLista.get(i) + "\n");
 
         return sb.toString();
     }
