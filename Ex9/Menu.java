@@ -38,7 +38,8 @@ public class Menu {
                     break;
                 }
                 case 2:{
-
+                    ModificarExercicios(sc);
+                    break;
                 }
                 case 3:{
 
@@ -58,7 +59,8 @@ public class Menu {
     }
     public static void ModificarAluno(Scanner sc) {
 
-        while (true) {
+        int opcao = 1;
+        while (opcao != 0) {
             System.out.print("(Alunos) O que quer fzr?\n" +
                     "1 - Listar alunos\n" +
                     "2 - Adicionar aluno\n" +
@@ -66,7 +68,7 @@ public class Menu {
                     "4 - Excluir aluno\n" +
                     "5 - Buscar aluno\n" +
                     "0 - Sair\n\n");
-            int opcao = sc.nextInt();
+            opcao = sc.nextInt();
             switch (opcao) {
                 case 1:{
                     ListarAlunos(ListaAlunos);
@@ -88,10 +90,22 @@ public class Menu {
                     BuscarAluno(sc, MapAlunosPorCpf, MapAlunosPorNome);
                     break;
                 }
+                case 0: {
+                    break;
+                }
 
             }
         }
 
+    }
+
+    public static void ModificarExercicios(Scanner sc) {
+
+        int opcao = 1;
+
+        while (opcao != 0) {
+            System.out.println();
+        }
     }
 
     public static void AdicionarBasico() {
