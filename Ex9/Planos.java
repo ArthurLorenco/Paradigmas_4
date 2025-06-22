@@ -1,12 +1,16 @@
 package Ex9;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Planos {
 
     private String nome;
     private int codigo;
     private float valorMensal;
+
+    public Planos() {}
 
     public String getNome() {
         return nome;
@@ -44,6 +48,26 @@ public class Planos {
             System.out.println(plano);
         }
         System.out.println();
+    }
+    public static void AdicionarPlano(Scanner sc, ArrayList<Planos> ListaPlanos) {
+
+        Planos planoNovo = new Planos();
+
+        System.out.print("fala o numero/codigo do plano: ");
+        planoNovo.setCodigo(sc.nextInt());
+        sc.nextLine();
+
+        System.out.print("diz o nome do plano: ");
+        planoNovo.setNome(sc.nextLine());
+
+        System.out.print("e qual o valor do plano: ");
+        planoNovo.setValorMensal(sc.nextFloat());
+        sc.nextLine();
+
+        ListaPlanos.add(planoNovo);
+
+        System.out.println("Pronto :O\n");
+
     }
 
     @Override

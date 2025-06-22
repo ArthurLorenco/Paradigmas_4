@@ -188,7 +188,7 @@ public class Menu {
                     break;
                 }
                 case 2: {
-                    AdicionarTreino(sc, ListaTreinoFixo, ListaExercicios);
+                    AdicionarPlano(sc, ListaPlanos);
                     break;
                 }
                 case 3: {
