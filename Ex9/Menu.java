@@ -146,6 +146,7 @@ public class Menu {
             System.out.print("(Treinos) O que quer fzr?\n" +
                     "1 - Listar treinos\n" +
                     "2 - Adicionar treino\n" +
+                    "3 - Excluir treino\n" +
                     "0 - Sair\n\n");
             opcao = sc.nextInt();
             switch (opcao) {
@@ -155,6 +156,10 @@ public class Menu {
                 }
                 case 2: {
                     AdicionarTreino(sc, ListaTreinoFixo, ListaExercicios);
+                    break;
+                }
+                case 3: {
+                    ExcluirTreino(sc, ListaTreinoFixo);
                     break;
                 }
                 case 0: {

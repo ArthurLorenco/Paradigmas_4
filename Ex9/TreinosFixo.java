@@ -30,8 +30,36 @@ public class TreinosFixo {
         exerciciosCargas.set(i,novaCarga);
     }
 
+    public static TreinosFixo EscolherTreino(Scanner sc, ArrayList<TreinosFixo> ListaTreinosFixo) {
+        if(ListaTreinosFixo.isEmpty()) {
+            System.out.println("nao tem treinos");
+            return null;
+        }
+
+        System.out.println("Qual dos treinos a seguir tu quer? (0 pra nenhum)" );
+        for(int i=0; i<ListaTreinosFixo.size(); i++){
+            System.out.println("Exercicio " + (i+1) + ":\n" + ListaTreinosFixo.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= ListaTreinosFixo.size()) {
+                return ListaTreinosFixo.get(opcao-1);
+            } else if (opcao == 0){
+                return null;
+            } else{
+                System.out.println("opcao invalida, tente novamente");
+            }
+        }
+    }
+
     public static void ListarTreinos(ArrayList<TreinosFixo> treinos) {
         int i = 1;
+
+        if(treinos.isEmpty()) {
+            System.out.println("nao tem treinos");
+        }
+
         for (TreinosFixo treino : treinos) {
             System.out.println("Treino " + i + ": " + treino);
             i++;
@@ -59,8 +87,16 @@ public class TreinosFixo {
         ListaTreinosFixo.add(new TreinosFixo(exerciciosProTreino, cargas));
 
     }
+    public static void ExcluirTreino(Scanner sc, ArrayList<TreinosFixo> ListaTreinosFixo) {
+        TreinosFixo treino = EscolherTreino(sc, ListaTreinosFixo);
+            if(treino != null) {
+            ListaTreinosFixo.remove(treino);
+            System.out.println("Feito :D\n");
+    }
+}
 
-    @Override
+
+@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Exercicios do treino:\n");
