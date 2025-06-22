@@ -125,6 +125,10 @@ public class Menu {
                     ExcluirExercicio(sc, ListaExercicios);
                     break;
                 }
+                case 4: {
+                    EditarExercicio(sc, ListaExercicios);
+                    break;
+                }
                 case 0: {
                     break;
                 }

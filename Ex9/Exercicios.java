@@ -41,6 +41,27 @@ public class Exercicios {
         this.musculosAtivados = musculosAtivados;
     }
 
+    public static Exercicios EscolherExercicios(Scanner sc, ArrayList<Exercicios> ListaExercicios) {
+        if(ListaExercicios.isEmpty()) {
+            System.out.println("nao tem exercicios");
+            return null;
+        }
+
+        System.out.println("Qual dos exercicios a seguir tu quer?" );
+        for(int i=0; i<ListaExercicios.size(); i++){
+            System.out.println("Exercicio " + (i+1) + ":\n" + ListaExercicios.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= ListaExercicios.size()) {
+                return ListaExercicios.get(opcao-1);
+            } else {
+                System.out.println("opcao invalida, tente novamente");
+            }
+        }
+    }
+
     public static void ListarExercicios(ArrayList<Exercicios> exercicios) {
         for (Exercicios exercicio : exercicios) {
             System.out.println(exercicio);
@@ -52,11 +73,11 @@ public class Exercicios {
         Exercicios exercicio = new Exercicios();
 
         System.out.print("fala o número do exercício: ");
-        int numero = sc.nextInt();
+        exercicio.setNumero(sc.nextInt());
         sc.nextLine();
 
         System.out.print("diz o nome do exercício: ");
-        String nome = sc.nextLine();
+        exercicio.setNome(sc.nextLine());
 
         System.out.print("quais os músculos ativados (separados por vírgula): ");
         String musculosInput = sc.nextLine();
@@ -64,9 +85,6 @@ public class Exercicios {
         for (String m : musculosInput.split(",")) {
             musculos.add(m.trim());
         }
-
-        exercicio.setNumero(numero);
-        exercicio.setNome(nome);
         exercicio.setMusculosAtivados(musculos);
 
         ListaExercicios.add(exercicio);
@@ -75,28 +93,32 @@ public class Exercicios {
 
     }
     public static void ExcluirExercicio(Scanner sc, ArrayList<Exercicios> ListaExercicios) {
-        if(ListaExercicios.isEmpty()) {
-            System.out.println("nao tem exercicios");
-            return;
+        Exercicios ex = EscolherExercicios(sc, ListaExercicios);
+        if(ex != null) {
+            ListaExercicios.remove(ex);
+            System.out.println("Feito :D\n");
         }
-
-        System.out.println("Qual dos exercicios a seguir quer excluir?" );
-        for(int i=0; i<ListaExercicios.size(); i++){
-            System.out.println("Exercicio " + (i+1) + ":\n" + ListaExercicios.get(i).toString());
-        }
-
-        while(true) {
-            int opcao = sc.nextInt();
-            if (opcao > 0 && opcao <= ListaExercicios.size()) {
-                ListaExercicios.remove(opcao-1);
-                break;
-            } else {
-                System.out.println("opcao invalida, tente novamente" );
-            }
-        }
-        System.out.println("Feito :D\n");
     }
+    public static void EditarExercicio(Scanner sc, ArrayList<Exercicios> ListaExercicios) {
 
+        Exercicios ex = EscolherExercicios(sc, ListaExercicios);
+        if(ex == null) {return;}
+
+        System.out.print("fala o novo número do exercício: ");
+        ex.setNumero(sc.nextInt());
+        sc.nextLine();
+
+        System.out.print("diz o novo nome do exercício: ");
+        ex.setNome(sc.nextLine());
+
+        System.out.print("quais os músculos ativados (separados por vírgula): ");
+        String musculosInput = sc.nextLine();
+        List<String> musculos = new ArrayList<>();
+        for (String m : musculosInput.split(",")) {
+            musculos.add(m.trim());
+        }
+        ex.setMusculosAtivados(musculos);
+    }
 
     @Override
     public String toString() {
