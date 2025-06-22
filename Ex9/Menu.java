@@ -108,6 +108,8 @@ public class Menu {
             System.out.print("(Exercicios) O que quer fzr?\n" +
                     "1 - Listar exercicios\n" +
                     "2 - Adicionar exercicio\n" +
+                    "3 - Excluir exercicio\n" +
+                    "4 - Editar exercicio\n" +
                     "0 - Sair\n\n");
             opcao = sc.nextInt();
             switch (opcao) {
@@ -119,12 +121,43 @@ public class Menu {
                     AdicionarExercicio(sc, ListaExercicios);
                     break;
                 }
+                case 3: {
+                    ExcluirExercicio(sc, ListaExercicios);
+                    break;
+                }
                 case 0: {
                     break;
                 }
             }
         }
     }
+
+    public static void ModificarTreinos(Scanner sc) {
+
+        int opcao = 1;
+
+        while (opcao != 0) {
+            System.out.print("(Treinos) O que quer fzr?\n" +
+                    "1 - Listar treinos\n" +
+                    "2 - Adicionar treino\n" +
+                    "0 - Sair\n\n");
+            opcao = sc.nextInt();
+            switch (opcao) {
+                case 1: {
+                    //ListarExercicios(ListaExercicios);
+                    break;
+                }
+                case 2: {
+                    //AdicionarExercicio(sc, ListaExercicios);
+                    break;
+                }
+                case 0: {
+                    break;
+                }
+            }
+        }
+    }
+
 
     public static void AdicionarBasico() {
         Alunos aluno1 = new Alunos("Julio", "12345678900", LocalDate.parse("2000-05-05"));

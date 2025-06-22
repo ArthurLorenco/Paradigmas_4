@@ -74,8 +74,30 @@ public class Exercicios {
         System.out.println("Pronto :O\n");
 
     }
+    public static void ExcluirExercicio(Scanner sc, ArrayList<Exercicios> ListaExercicios) {
+        if(ListaExercicios.isEmpty()) {
+            System.out.println("nao tem exercicios");
+            return;
+        }
 
-    // Representação em string
+        System.out.println("Qual dos exercicios a seguir quer excluir?" );
+        for(int i=0; i<ListaExercicios.size(); i++){
+            System.out.println("Exercicio " + (i+1) + ":\n" + ListaExercicios.get(i).toString());
+        }
+
+        while(true) {
+            int opcao = sc.nextInt();
+            if (opcao > 0 && opcao <= ListaExercicios.size()) {
+                ListaExercicios.remove(opcao-1);
+                break;
+            } else {
+                System.out.println("opcao invalida, tente novamente" );
+            }
+        }
+        System.out.println("Feito :D\n");
+    }
+
+
     @Override
     public String toString() {
         return String.format("%03d   %s - %s", numero, nome, String.join(", ", musculosAtivados));
