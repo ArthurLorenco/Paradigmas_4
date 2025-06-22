@@ -5,6 +5,7 @@ import java.util.*;
 
 import static Ex9.Alunos.*;
 import static Ex9.Exercicios.*;
+import static Ex9.TreinosFixo.*;
 
 public class Menu {
 
@@ -43,7 +44,8 @@ public class Menu {
                     break;
                 }
                 case 3:{
-
+                    ModificarTreinos(sc);
+                    break;
                 }
                 case 4:{
 
@@ -148,7 +150,7 @@ public class Menu {
             opcao = sc.nextInt();
             switch (opcao) {
                 case 1: {
-                    //ListarExercicios(ListaExercicios);
+                    ListarTreinos(ListaTreinoFixo);
                     break;
                 }
                 case 2: {

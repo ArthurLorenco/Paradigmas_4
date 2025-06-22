@@ -29,6 +29,14 @@ public class TreinosFixo {
         exerciciosCargas.set(i,novaCarga);
     }
 
+    public static void ListarTreinos(ArrayList<TreinosFixo> treinos) {
+        int i = 1;
+        for (TreinosFixo treino : treinos) {
+            System.out.println("Treino " + i + ": " + treino);
+            i++;
+        }
+        System.out.println();
+    }
 
     @Override
     public String toString() {
