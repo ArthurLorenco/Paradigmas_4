@@ -53,7 +53,8 @@ public class Menu {
                     break;
                 }
                 case 5:{
-
+                    EntrarComoAluno(sc);
+                    break;
                 }
                 case 0: {
                     break;
@@ -201,6 +202,56 @@ public class Menu {
 
             }
         }
+    }
+    public static void EntrarComoAluno(Scanner sc) {
+
+        String CPF;
+        while(true){
+            System.out.print("Faca seu login! digite seu cpf: ");
+            CPF = sc.next();
+            if (CPF.matches("\\d{11}")) {
+                CPF = formatarCPF(CPF);
+                break;
+            } else {
+                throw new IllegalArgumentException("CPF deve conter exatamente 11 dígitos numéricos.");
+            }
+        }
+        System.out.print("Seja bem vindo!!!\n ");
+        Alunos alunoAtual = MapAlunosPorCpf.get(CPF);
+
+        int opcao = 1;
+        while (opcao != 0) {
+            System.out.print("Ola "+ alunoAtual.getNome() + "! O que vose quer fazer?\n" +
+                    "1 - Comecar um treino\n" +
+                    "2 - Listar treinos disponiveis\n" +
+                    "0 - Sair\n\n");
+            opcao = sc.nextInt();
+            switch (opcao) {
+                case 1: {
+                    alunoAtual.EscolherTreinoPraFazer(sc);
+                    alunoAtual.ExecutarTreino(sc);
+                    break;
+                }
+                case 2: {
+                    alunoAtual.ListarTreinosDisponiveis();
+                    break;
+                }
+                case 0: {
+                    break;
+                }
+                default: {
+                    System.out.println("Opcao invalida, tenta dnv");
+                    break;
+                }
+
+            }
+
+
+
+
+        }
+
+
     }
 
     public static void AdicionarBasico() {

@@ -63,7 +63,7 @@ public class Alunos {
         this.dataNascimento = dataNascimento;
     }
 
-    private static String formatarCPF(String cpf) {
+    public static String formatarCPF(String cpf) {
         return cpf.substring(0, 3) + "." +
                 cpf.substring(3, 6) + "." +
                 cpf.substring(6, 9) + "-" +
@@ -88,7 +88,7 @@ public class Alunos {
             return;
         }
 
-        System.out.println("Qual dos planos a seguir eh?" );
+        System.out.println("Qual dos trenos a seguir eh?" );
         for(int i=0; i<ListaTreinosDisponiveis.size(); i++){
             System.out.println("Treino " + (i+1) + ":\n" + ListaTreinosDisponiveis.get(i).toString());
         }
@@ -148,7 +148,7 @@ public class Alunos {
         }
 
     }
-    public void EscolherTreinoPraFazer(Scanner sc, LocalDate data){
+    public void EscolherTreinoPraFazer(Scanner sc){
 
         TreinoFazivel treino = new TreinoFazivel();
 
@@ -175,6 +175,7 @@ public class Alunos {
         }
         treino.setDataDoTreino(LocalDate.now());
         treinoAtual = treino;
+        treinoAtual.InicializarListaBoolean();
     }
     public void finalizarTreinoAtual(){
 
@@ -183,7 +184,55 @@ public class Alunos {
 
     }
 
+    public void ListarTreinosDisponiveis(){
+        int i = 1;
 
+        if(treinosDisponiveis.isEmpty()) {
+            System.out.println("nao tem treinos");
+        }
+
+        for (TreinosFixo treino : treinosDisponiveis) {
+            System.out.println("Treino " + i + ": " + treino);
+            i++;
+        }
+        System.out.println();
+
+    }
+    public void ExecutarTreino(Scanner sc){
+
+        int opcao = 1;
+        while (opcao != 0) {
+            System.out.print("(treinando) O que vai fzr?\n" +
+                    "1 - Listar exercicios ainda não feitos\n" +
+                    "2 - Finalizar treino\n" +
+                    "3 - Marcar exercicio como concluido\n" +
+                    "4 - Alterar carga de algum exercicio\n" +
+                    "0 - Sair\n\n");
+            opcao = sc.nextInt();
+            switch (opcao) {
+                case 1: {
+                    treinoAtual.ListarExerciciosAindaNaoFeitos();
+                    break;
+                }
+                case 2: {
+                    break;
+                }
+                case 3: {
+                    treinoAtual.marcarComoFeito(sc);
+                    break;
+                }
+                case 0: {
+                    break;
+                }
+                default: {
+                    System.out.println("Opcao invalida, tenta dnv");
+                    break;
+                }
+
+            }
+
+        }
+    }
 
     public static void ListarAlunos(ArrayList<Alunos> alunos) {
         for (Alunos aluno : alunos) {
@@ -224,7 +273,7 @@ public class Alunos {
                     break;
                 }
                 case 2:{
-                    alunoPraEditar.EscolherTreinoPraFazer(sc, LocalDate.parse("2025-06-26"));
+                    alunoPraEditar.EscolherTreinoPraFazer(sc);
                     break;
                 }
                 case 3:{
